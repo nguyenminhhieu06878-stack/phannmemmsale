@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống ERP - Quản lý Sales cho Nhà máy Sản xuất Điện tử</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 24pt;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 18pt;
+            margin-top: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #2c3e50;
+            font-size: 14pt;
+            margin-top: 20px;
+        }
+        p {
+            text-align: justify;
+            margin: 10px 0;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .tech-stack {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ĐỀ TÀI: XÂY DỰNG HỆ THỐNG ERP<br/>QUẢN LÝ SALES CHO NHÀ MÁY SẢN XUẤT ĐIỆN TỬ</h1>
+
+<div class="section">
+    <h2>I. GIỚI THIỆU</h2>
+    
+    <h3>1.1. Tên đề tài</h3>
+    <p>Xây dựng hệ thống ERP (Enterprise Resource Planning) để quản lý công đoạn Sales của một nhà máy sản xuất sản phẩm điện tử.</p>
+    
+    <h3>1.2. Mục tiêu</h3>
+    <ul>
+        <li>Tự động hóa quy trình bán hàng từ báo giá đến giao hàng</li>
+        <li>Quản lý khách hàng và lịch sử giao dịch hiệu quả</li>
+        <li>Theo dõi hiệu suất bán hàng theo thời gian thực</li>
+        <li>Cung cấp báo cáo và phân tích dữ liệu bán hàng</li>
+    </ul>
+    
+    <h3>1.3. Phạm vi</h3>
+    <p>Hệ thống bao gồm: Quản lý khách hàng (CRM), Quản lý sản phẩm, Quản lý báo giá, Quản lý đơn hàng, Quản lý giao hàng, Quản lý hóa đơn và thanh toán, Báo cáo và thống kê.</p>
+</div>
+
+<div class="section">
+    <h2>II. CÔNG NGHỆ SỬ DỤNG</h2>
+    
+    <div class="tech-stack">
+        <h3>2.1. Frontend</h3>
+        <ul>
+            <li><strong>Framework:</strong> React 18 + Vite</li>
+            <li><strong>UI Library:</strong> Ant Design</li>
+            <li><strong>State Management:</strong> Redux Toolkit</li>
+            <li><strong>Form & Validation:</strong> React Hook Form + Yup</li>
+        </ul>
+    </div>
+    
+    <div class="tech-stack">
+        <h3>2.2. Backend</h3>
+        <ul>
+            <li><strong>Runtime:</strong> Node.js 18+</li>
+            <li><strong>Framework:</strong> Express.js</li>
+            <li><strong>Database:</strong> MongoDB + Mongoose</li>
+            <li><strong>Authentication:</strong> JWT (JSON Web Token)</li>
+        </ul>
+    </div>
+    
+    <div class="tech-stack">
+        <h3>2.3. Deployment</h3>
+        <ul>
+            <li><strong>Frontend:</strong> Vercel</li>
+            <li><strong>Backend:</strong> Railway</li>
+            <li><strong>Database:</strong> MongoDB Atlas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>III. PHÂN QUYỀN NGƯỜI DÙNG</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Vai trò</th>
+                <th>Quyền hạn chính</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Admin</td>
+                <td>Quản trị toàn bộ hệ thống, người dùng, cấu hình</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Sales Manager</td>
+                <td>Quản lý team sales, phê duyệt đơn hàng, xem báo cáo</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Sales Staff</td>
+                <td>Tạo báo giá, đơn hàng, quản lý khách hàng</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Customer Service</td>
+                <td>Xử lý khiếu nại, cập nhật trạng thái đơn hàng</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Warehouse Staff</td>
+                <td>Xuất kho, cập nhật tồn kho</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Accountant</td>
+                <td>Xuất hóa đơn, theo dõi công nợ</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Delivery Staff</td>
+                <td>Cập nhật trạng thái giao hàng</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Director</td>
+                <td>Xem tất cả báo cáo (chỉ đọc)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>IV. CHỨC NĂNG CHÍNH</h2>
+    
+    <h3>4.1. Quản lý khách hàng (CRM)</h3>
+    <ul>
+        <li>Tạo, sửa, xóa thông tin khách hàng</li>
+        <li>Phân loại khách hàng (VIP, thường, mới)</li>
+        <li>Lịch sử giao dịch và tương tác</li>
+        <li>Phân công khách hàng cho sales staff</li>
+    </ul>
+    
+    <h3>4.2. Quản lý sản phẩm</h3>
+    <ul>
+        <li>Danh mục sản phẩm điện tử</li>
+        <li>Quản lý tồn kho và cảnh báo</li>
+        <li>Thông tin chi tiết và hình ảnh sản phẩm</li>
+    </ul>
+    
+    <h3>4.3. Quản lý báo giá và đơn hàng</h3>
+    <ul>
+        <li>Tạo báo giá với chiết khấu</li>
+        <li>Chuyển báo giá thành đơn hàng</li>
+        <li>Theo dõi trạng thái đơn hàng</li>
+        <li>Phê duyệt đơn hàng</li>
+    </ul>
+    
+    <h3>4.4. Quản lý giao hàng</h3>
+    <ul>
+        <li>Tạo phiếu giao hàng</li>
+        <li>Phân công nhân viên giao hàng</li>
+        <li>Theo dõi trạng thái giao hàng</li>
+    </ul>
+    
+    <h3>4.5. Quản lý hóa đơn và thanh toán</h3>
+    <ul>
+        <li>Tạo và xuất hóa đơn</li>
+        <li>Theo dõi công nợ</li>
+        <li>Ghi nhận thanh toán</li>
+    </ul>
+    
+    <h3>4.6. Báo cáo và thống kê</h3>
+    <ul>
+        <li>Dashboard tổng quan</li>
+        <li>Báo cáo doanh số theo nhiều tiêu chí</li>
+        <li>Báo cáo hiệu suất nhân viên</li>
+        <li>Biểu đồ và visualization</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>V. SƠ ĐỒ USE CASE</h2>
+    
+    <h3>5.1. Actors (Người dùng)</h3>
+    <p>Hệ thống có 8 actors chính:</p>
+    <ul>
+        <li><strong>Admin:</strong> Quản trị viên hệ thống</li>
+        <li><strong>Sales Manager:</strong> Quản lý bán hàng</li>
+        <li><strong>Sales Staff:</strong> Nhân viên bán hàng</li>
+        <li><strong>Customer Service:</strong> Chăm sóc khách hàng</li>
+        <li><strong>Warehouse Staff:</strong> Nhân viên kho</li>
+        <li><strong>Accountant:</strong> Kế toán</li>
+        <li><strong>Delivery Staff:</strong> Nhân viên giao hàng</li>
+        <li><strong>Director:</strong> Giám đốc</li>
+    </ul>
+    
+    <h3>5.2. Các Use Case chính</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nhóm chức năng</th>
+                <th>Use Cases</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Quản lý Người dùng</td>
+                <td>Đăng nhập, Quản lý tài khoản, Phân quyền</td>
+            </tr>
+            <tr>
+                <td>Quản lý Khách hàng</td>
+                <td>Xem danh sách KH, Tạo KH mới, Cập nhật thông tin, Xem lịch sử</td>
+            </tr>
+            <tr>
+                <td>Quản lý Sản phẩm</td>
+                <td>Xem danh sách SP, Quản lý tồn kho, Cảnh báo tồn kho</td>
+            </tr>
+            <tr>
+                <td>Quản lý Báo giá</td>
+                <td>Tạo báo giá, Phê duyệt báo giá, Chuyển thành đơn hàng</td>
+            </tr>
+            <tr>
+                <td>Quản lý Đơn hàng</td>
+                <td>Tạo đơn hàng, Xem đơn hàng, Phê duyệt, Cập nhật trạng thái</td>
+            </tr>
+            <tr>
+                <td>Quản lý Giao hàng</td>
+                <td>Tạo phiếu giao hàng, Phân công, Cập nhật trạng thái</td>
+            </tr>
+            <tr>
+                <td>Quản lý Hóa đơn</td>
+                <td>Tạo hóa đơn, Xuất hóa đơn, Theo dõi công nợ, Ghi nhận thanh toán</td>
+            </tr>
+            <tr>
+                <td>Báo cáo & Thống kê</td>
+                <td>Dashboard, Báo cáo doanh số, Báo cáo hiệu suất</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>5.3. Luồng nghiệp vụ chính</h3>
+    <p><strong>Luồng 1: Từ Báo giá đến Đơn hàng</strong></p>
+    <p>Sales Staff tạo báo giá → Sales Manager phê duyệt (nếu cần) → Chuyển thành đơn hàng → Sales Manager phê duyệt đơn hàng (nếu giá trị lớn)</p>
+    
+    <p><strong>Luồng 2: Từ Đơn hàng đến Giao hàng</strong></p>
+    <p>Đơn hàng được phê duyệt → Warehouse Staff tạo phiếu giao hàng → Delivery Staff nhận phân công → Cập nhật trạng thái → Xác nhận giao hàng thành công</p>
+    
+    <p><strong>Luồng 3: Từ Giao hàng đến Thanh toán</strong></p>
+    <p>Giao hàng thành công → Accountant tạo hóa đơn → Xuất hóa đơn → Theo dõi công nợ → Ghi nhận thanh toán</p>
+    
+    <p style="text-align: center; margin: 20px 0; font-style: italic; color: #7f8c8d;">
+        (Xem file USE_CASE_DIAGRAM.html để xem sơ đồ Use Case chi tiết với đầy đủ actors và use cases)
+    </p>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>VI. KIẾN TRÚC HỆ THỐNG</h2>
+    
+    <h3>6.1. Mô hình 3 tầng</h3>
+    <ul>
+        <li><strong>Presentation Layer:</strong> React + Vite (Frontend)</li>
+        <li><strong>Application Layer:</strong> Node.js + Express (Backend API)</li>
+        <li><strong>Data Layer:</strong> MongoDB (Database)</li>
+    </ul>
+    
+    <h3>6.2. Database Collections</h3>
+    <ul>
+        <li><strong>users:</strong> Thông tin người dùng và authentication</li>
+        <li><strong>customers:</strong> Thông tin khách hàng</li>
+        <li><strong>products:</strong> Danh mục sản phẩm</li>
+        <li><strong>quotations:</strong> Báo giá</li>
+        <li><strong>orders:</strong> Đơn hàng</li>
+        <li><strong>deliveries:</strong> Thông tin giao hàng</li>
+        <li><strong>invoices:</strong> Hóa đơn và thanh toán</li>
+    </ul>
+    
+    <h3>6.3. Bảo mật</h3>
+    <ul>
+        <li>Đăng nhập với username và password</li>
+        <li>Mã hóa mật khẩu</li>
+        <li>Phân quyền theo vai trò</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>VII. LỢI ÍCH</h2>
+    
+    <h3>7.1. Cho Doanh nghiệp</h3>
+    <ul>
+        <li>Tự động hóa quy trình, giảm thời gian xử lý</li>
+        <li>Quản lý khách hàng tập trung</li>
+        <li>Theo dõi hiệu suất sales team</li>
+        <li>Giảm sai sót trong báo giá và đơn hàng</li>
+        <li>Báo cáo và phân tích để ra quyết định</li>
+    </ul>
+    
+    <h3>7.2. Cho Nhân viên</h3>
+    <ul>
+        <li>Giao diện thân thiện, dễ sử dụng</li>
+        <li>Truy cập mọi lúc mọi nơi</li>
+        <li>Giảm công việc thủ công</li>
+        <li>Theo dõi KPI cá nhân</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>VIII. KẾT LUẬN</h2>
+    
+    <p>Hệ thống ERP quản lý Sales là giải pháp toàn diện giúp tự động hóa và tối ưu hóa quy trình bán hàng cho nhà máy sản xuất điện tử. Với công nghệ hiện đại (React, Node.js, MongoDB) và kiến trúc linh hoạt, hệ thống đảm bảo:</p>
+    
+    <ul>
+        <li><strong>Hiệu quả:</strong> Tự động hóa quy trình, giảm thời gian xử lý</li>
+        <li><strong>Chính xác:</strong> Giảm sai sót trong báo giá và đơn hàng</li>
+        <li><strong>Minh bạch:</strong> Theo dõi toàn bộ quy trình</li>
+        <li><strong>Bảo mật:</strong> Phân quyền rõ ràng, bảo vệ dữ liệu</li>
+        <li><strong>Mở rộng:</strong> Dễ dàng thêm tính năng mới</li>
+    </ul>
+    
+    <p>Dự án có thể deploy lên cloud (Vercel + Railway + MongoDB Atlas) với chi phí hợp lý.</p>
+</div>
+
+<div style="text-align: center; margin-top: 50px; padding: 20px; border-top: 2px solid #333;">
+    <p><strong>HẾT</strong></p>
+    <p style="font-style: italic;">Tài liệu mô tả dự án ERP - Quản lý Sales</p>
+</div>
+
+</body>
+</html>

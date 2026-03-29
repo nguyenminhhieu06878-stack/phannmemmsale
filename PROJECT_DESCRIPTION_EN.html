@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System - Sales Management for Electronics Manufacturing Plant</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 24pt;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 18pt;
+            margin-top: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #2c3e50;
+            font-size: 14pt;
+            margin-top: 20px;
+        }
+        p {
+            text-align: justify;
+            margin: 10px 0;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .tech-stack {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+
+<h1>PROJECT: ERP SYSTEM<br/>SALES MANAGEMENT FOR ELECTRONICS MANUFACTURING PLANT</h1>
+
+<div class="section">
+    <h2>I. INTRODUCTION</h2>
+    
+    <h3>1.1. Project Title</h3>
+    <p>Building an ERP (Enterprise Resource Planning) system to manage the Sales process of an electronics manufacturing plant.</p>
+    
+    <h3>1.2. Objectives</h3>
+    <ul>
+        <li>Automate the sales process from quotation to delivery</li>
+        <li>Efficiently manage customers and transaction history</li>
+        <li>Track sales performance in real-time</li>
+        <li>Provide sales data reporting and analysis</li>
+    </ul>
+    
+    <h3>1.3. Scope</h3>
+    <p>The system includes: Customer Management (CRM), Product Management, Quotation Management, Order Management, Delivery Management, Invoice and Payment Management, Reports and Statistics.</p>
+</div>
+
+<div class="section">
+    <h2>II. TECHNOLOGY STACK</h2>
+    
+    <div class="tech-stack">
+        <h3>2.1. Frontend</h3>
+        <ul>
+            <li><strong>Framework:</strong> React 18 + Vite</li>
+            <li><strong>UI Library:</strong> Ant Design</li>
+            <li><strong>State Management:</strong> Redux Toolkit</li>
+            <li><strong>Form & Validation:</strong> React Hook Form + Yup</li>
+        </ul>
+    </div>
+    
+    <div class="tech-stack">
+        <h3>2.2. Backend</h3>
+        <ul>
+            <li><strong>Runtime:</strong> Node.js 18+</li>
+            <li><strong>Framework:</strong> Express.js</li>
+            <li><strong>Database:</strong> MongoDB + Mongoose</li>
+            <li><strong>Authentication:</strong> JWT (JSON Web Token)</li>
+        </ul>
+    </div>
+    
+    <div class="tech-stack">
+        <h3>2.3. Deployment</h3>
+        <ul>
+            <li><strong>Frontend:</strong> Vercel</li>
+            <li><strong>Backend:</strong> Railway</li>
+            <li><strong>Database:</strong> MongoDB Atlas</li>
+        </ul>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>III. USER ROLES & PERMISSIONS</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Role</th>
+                <th>Main Permissions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Admin</td>
+                <td>Full system administration, user management, configuration</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Sales Manager</td>
+                <td>Manage sales team, approve orders, view reports</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Sales Staff</td>
+                <td>Create quotations, orders, manage customers</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Customer Service</td>
+                <td>Handle complaints, update order status</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Warehouse Staff</td>
+                <td>Export goods, update inventory</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Accountant</td>
+                <td>Issue invoices, track receivables</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Delivery Staff</td>
+                <td>Update delivery status</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Director</td>
+                <td>View all reports (read-only)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>IV. MAIN FEATURES</h2>
+    
+    <h3>4.1. Customer Management (CRM)</h3>
+    <ul>
+        <li>Create, edit, delete customer information</li>
+        <li>Classify customers (VIP, regular, new)</li>
+        <li>Transaction and interaction history</li>
+        <li>Assign customers to sales staff</li>
+    </ul>
+    
+    <h3>4.2. Product Management</h3>
+    <ul>
+        <li>Electronics product catalog</li>
+        <li>Inventory management and alerts</li>
+        <li>Detailed information and product images</li>
+    </ul>
+    
+    <h3>4.3. Quotation and Order Management</h3>
+    <ul>
+        <li>Create quotations with discounts</li>
+        <li>Convert quotations to orders</li>
+        <li>Track order status</li>
+        <li>Order approval</li>
+    </ul>
+    
+    <h3>4.4. Delivery Management</h3>
+    <ul>
+        <li>Create delivery notes</li>
+        <li>Assign delivery staff</li>
+        <li>Track delivery status</li>
+    </ul>
+    
+    <h3>4.5. Invoice and Payment Management</h3>
+    <ul>
+        <li>Create and issue invoices</li>
+        <li>Track receivables</li>
+        <li>Record payments</li>
+    </ul>
+    
+    <h3>4.6. Reports and Statistics</h3>
+    <ul>
+        <li>Overview dashboard</li>
+        <li>Sales reports by multiple criteria</li>
+        <li>Employee performance reports</li>
+        <li>Charts and visualization</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>V. USE CASE DIAGRAM</h2>
+    
+    <h3>5.1. Actors</h3>
+    <p>The system has 8 main actors:</p>
+    <ul>
+        <li><strong>Admin:</strong> System administrator</li>
+        <li><strong>Sales Manager:</strong> Sales team manager</li>
+        <li><strong>Sales Staff:</strong> Sales representative</li>
+        <li><strong>Customer Service:</strong> Customer support staff</li>
+        <li><strong>Warehouse Staff:</strong> Warehouse employee</li>
+        <li><strong>Accountant:</strong> Accounting staff</li>
+        <li><strong>Delivery Staff:</strong> Delivery personnel</li>
+        <li><strong>Director:</strong> Company director</li>
+    </ul>
+    
+    <h3>5.2. Main Use Cases</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Function Group</th>
+                <th>Use Cases</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>User Management</td>
+                <td>Login, Manage Accounts, Assign Permissions</td>
+            </tr>
+            <tr>
+                <td>Customer Management</td>
+                <td>View Customer List, Create Customer, Update Info, View History</td>
+            </tr>
+            <tr>
+                <td>Product Management</td>
+                <td>View Product List, Manage Inventory, Low Stock Alert</td>
+            </tr>
+            <tr>
+                <td>Quotation Management</td>
+                <td>Create Quotation, Approve Quotation, Convert to Order</td>
+            </tr>
+            <tr>
+                <td>Order Management</td>
+                <td>Create Order, View Orders, Approve Order, Update Status</td>
+            </tr>
+            <tr>
+                <td>Delivery Management</td>
+                <td>Create Delivery Note, Assign Delivery, Update Status</td>
+            </tr>
+            <tr>
+                <td>Invoice Management</td>
+                <td>Create Invoice, Issue Invoice, Track Receivables, Record Payment</td>
+            </tr>
+            <tr>
+                <td>Reports & Statistics</td>
+                <td>Dashboard, Sales Report, Performance Report</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>5.3. Main Business Flows</h3>
+    <p><strong>Flow 1: From Quotation to Order</strong></p>
+    <p>Sales Staff creates quotation → Sales Manager approves (if needed) → Convert to order → Sales Manager approves order (if high value)</p>
+    
+    <p><strong>Flow 2: From Order to Delivery</strong></p>
+    <p>Order approved → Warehouse Staff creates delivery note → Delivery Staff receives assignment → Updates status → Confirms successful delivery</p>
+    
+    <p><strong>Flow 3: From Delivery to Payment</strong></p>
+    <p>Successful delivery → Accountant creates invoice → Issues invoice → Tracks receivables → Records payment</p>
+    
+    <p style="text-align: center; margin: 20px 0; font-style: italic; color: #7f8c8d;">
+        (See USE_CASE_DIAGRAM_EN.html file for detailed Use Case diagram with all actors and use cases)
+    </p>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>VI. SYSTEM ARCHITECTURE</h2>
+    
+    <h3>6.1. 3-Tier Model</h3>
+    <ul>
+        <li><strong>Presentation Layer:</strong> React + Vite (Frontend)</li>
+        <li><strong>Application Layer:</strong> Node.js + Express (Backend API)</li>
+        <li><strong>Data Layer:</strong> MongoDB (Database)</li>
+    </ul>
+    
+    <h3>6.2. Database Collections</h3>
+    <ul>
+        <li><strong>users:</strong> User information and authentication</li>
+        <li><strong>customers:</strong> Customer information</li>
+        <li><strong>products:</strong> Product catalog</li>
+        <li><strong>quotations:</strong> Quotations</li>
+        <li><strong>orders:</strong> Orders</li>
+        <li><strong>deliveries:</strong> Delivery information</li>
+        <li><strong>invoices:</strong> Invoices and payments</li>
+    </ul>
+    
+    <h3>6.3. Security</h3>
+    <ul>
+        <li>Login with username and password</li>
+        <li>Password encryption</li>
+        <li>Role-based permissions</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section">
+    <h2>VII. BENEFITS</h2>
+    
+    <h3>7.1. For Business</h3>
+    <ul>
+        <li>Process automation, reduced processing time</li>
+        <li>Centralized customer management</li>
+        <li>Track sales team performance</li>
+        <li>Reduce errors in quotations and orders</li>
+        <li>Reporting and analysis for decision making</li>
+    </ul>
+    
+    <h3>7.2. For Employees</h3>
+    <ul>
+        <li>User-friendly interface, easy to use</li>
+        <li>Access anytime, anywhere</li>
+        <li>Reduce manual work</li>
+        <li>Track personal KPIs</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>VIII. CONCLUSION</h2>
+    
+    <p>The ERP Sales Management System is a comprehensive solution that helps automate and optimize the sales process for electronics manufacturing plants. With modern technology (React, Node.js, MongoDB) and flexible architecture, the system ensures:</p>
+    
+    <ul>
+        <li><strong>Efficiency:</strong> Process automation, reduced processing time</li>
+        <li><strong>Accuracy:</strong> Reduced errors in quotations and orders</li>
+        <li><strong>Transparency:</strong> Track the entire process</li>
+        <li><strong>Security:</strong> Clear permissions, data protection</li>
+        <li><strong>Scalability:</strong> Easy to add new features</li>
+    </ul>
+    
+    <p>The project can be deployed on cloud (Vercel + Railway + MongoDB Atlas) with reasonable costs.</p>
+</div>
+
+<div style="text-align: center; margin-top: 50px; padding: 20px; border-top: 2px solid #333;">
+    <p><strong>END</strong></p>
+    <p style="font-style: italic;">ERP - Sales Management System Project Description</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f6f8fa;
+  min-height: 100vh;
+  color: #24292f;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f6f8fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0d7de;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #afb8c1;
+}
+
+/* Ant Design customizations */
+.ant-layout {
+  min-height: 100vh;
+  background: #f6f8fa !important;
+}
+
+.ant-layout-sider {
+  box-shadow: 1px 0 0 #30363d !important;
+  border-right: 1px solid #30363d !important;
+}
+
+.ant-layout-sider .ant-menu-item {
+  margin: 2px 8px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  color: #f0f6fc !important;
+}
+
+.ant-layout-sider .ant-menu-item:hover {
+  background: #30363d !important;
+  color: #f0f6fc !important;
+}
+
+.ant-layout-sider .ant-menu-item-selected {
+  background: #21262d !important;
+  color: #f0f6fc !important;
+}
+
+.ant-layout-sider .ant-menu-item-selected::after {
+  display: none !important;
+}
+
+.ant-layout-header {
+  border-bottom: 1px solid #d0d7de !important;
+  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.15) !important;
+}
+
+/* Modern card styles */
+.ant-card {
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(16, 22, 26, 0.1), 0 1px 2px rgba(16, 22, 26, 0.2) !important;
+  border: 1px solid #d0d7de !important;
+  transition: all 0.2s ease !important;
+}
+
+.ant-card:hover {
+  box-shadow: 0 3px 6px rgba(16, 22, 26, 0.15), 0 2px 4px rgba(16, 22, 26, 0.12) !important;
+}
+
+.ant-card-head {
+  border-bottom: 1px solid #d0d7de !important;
+  background: #f6f8fa !important;
+}
+
+/* Modern button styles */
+.ant-btn-primary {
+  background: #0969da !important;
+  border: 1px solid #0969da !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.ant-btn-primary:hover {
+  background: #0860ca !important;
+  border-color: #0860ca !important;
+  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.1), 0 0 0 3px rgba(9, 105, 218, 0.3) !important;
+}
+
+.ant-btn {
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid #d0d7de !important;
+}
+
+.ant-btn:hover {
+  border-color: #afb8c1 !important;
+  background: #f3f4f6 !important;
+}
+
+/* Modern table styles */
+.ant-table {
+  border-radius: 8px !important;
+  overflow: hidden;
+  border: 1px solid #d0d7de !important;
+}
+
+.ant-table-thead > tr > th {
+  background: #f6f8fa !important;
+  border-bottom: 1px solid #d0d7de !important;
+  font-weight: 600 !important;
+  color: #24292f !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f6f8fa !important;
+}
+
+/* Modern form styles */
+.ant-form-item-label > label {
+  font-weight: 600 !important;
+  color: #24292f !important;
+}
+
+.ant-input, .ant-select-selector {
+  border-radius: 6px !important;
+  border: 1px solid #d0d7de !important;
+  transition: all 0.2s ease !important;
+}
+
+.ant-input:focus, .ant-select-focused .ant-select-selector {
+  border-color: #0969da !important;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3) !important;
+}
+
+/* Modern modal styles */
+.ant-modal {
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.ant-modal-header {
+  background: #f6f8fa !important;
+  border-bottom: 1px solid #d0d7de !important;
+}
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.status-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.status-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.status-info {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+
+/* Glassmorphism effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .ant-layout-content {
+    margin: 16px !important;
+    padding: 20px !important;
+  }
+  
+  .ant-layout-header {
+    padding: 0 16px !important;
+  }
+  
+  .ant-card {
+    margin-bottom: 16px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .ant-layout-sider,
+  .ant-layout-header {
+    display: none !important;
+  }
+  
+  .ant-layout-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
