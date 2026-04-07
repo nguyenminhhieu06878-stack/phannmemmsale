@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, createUser, updateUser, deleteUser } from '../../store/slices/userSlice';
 import PermissionButton from '../../components/PermissionButton';
 import { getRoleDisplayName } from '../../utils/permissions';
+import useResponsive from '../../hooks/useResponsive';
 
 const { Option } = Select;
 
@@ -12,6 +13,7 @@ const Users = () => {
   const dispatch = useDispatch();
   const { list, loading, pagination } = useSelector(state => state.users);
   const { user: currentUser } = useSelector(state => state.auth);
+  const { isMobile, isTablet } = useResponsive();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [searchText, setSearchText] = useState('');
@@ -142,14 +144,15 @@ const Users = () => {
       title: 'Thao tác',
       key: 'action',
       render: (_, record) => (
-        <Space size="small">
+        <Space size="small" wrap>
           <PermissionButton
             action="user.edit"
             type="link"
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
+            size={isMobile ? 'small' : 'middle'}
           >
-            Edit
+            {isMobile ? '' : 'Edit'}
           </PermissionButton>
           <Popconfirm
             title="Are you sure you want to delete this user?"
@@ -165,38 +168,66 @@ const Users = () => {
               icon={<DeleteOutlined />}
               disabled={record.id === currentUser?.id}
               tooltip="Cannot delete yourself"
+              size={isMobile ? 'small' : 'middle'}
             >
-              Delete
+              {isMobile ? '' : 'Delete'}
             </PermissionButton>
           </Popconfirm>
         </Space>
       ),
+      width: isMobile ? 80 : 120
     },
   ];
 
   return (
     <div>
       <Card>
-        <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-          <Space>
+        <div style={{ 
+          marginBottom: 16, 
+          display: 'flex', 
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+          gap: '12px'
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            gap: '8px',
+            alignItems: 'center',
+            flex: 1,
+            minWidth: isMobile ? '100%' : 'auto'
+          }}>
             <Input
               placeholder="Search theo tên, email..."
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               onPressEnter={handleSearch}
-              style={{ width: 300 }}
+              style={{ 
+                width: isMobile ? '100%' : (isTablet ? 200 : 300),
+                maxWidth: isMobile ? 'none' : 300
+              }}
             />
-            <Button icon={<SearchOutlined />} onClick={handleSearch}>
-              Search
+            <Button 
+              icon={<SearchOutlined />} 
+              onClick={handleSearch}
+              size={isMobile ? 'small' : 'middle'}
+              style={{ flexShrink: 0 }}
+            >
+              {isMobile ? '' : 'Search'}
             </Button>
-          </Space>
+          </div>
           <PermissionButton
             action="user.create"
             type="primary"
             icon={<PlusOutlined />}
             onClick={handleCreate}
+            size={isMobile ? 'small' : 'middle'}
+            style={{ 
+              flexShrink: 0,
+              minWidth: 'fit-content'
+            }}
           >
-            Add User
+            {isMobile ? 'Add' : 'Add User'}
           </PermissionButton>
         </div>
 
@@ -205,13 +236,17 @@ const Users = () => {
           dataSource={list}
           rowKey="id"
           loading={loading}
-          scroll={{ x: 1200 }}
+          scroll={{ x: isMobile ? 800 : 1200 }}
+          size={isMobile ? 'small' : 'middle'}
           pagination={{
             current: pagination.page,
             pageSize: pagination.limit,
             total: pagination.total,
-            showSizeChanger: true,
+            showSizeChanger: !isMobile,
+            showQuickJumper: !isMobile,
             showTotal: (total) => `Total ${total} users`,
+            size: isMobile ? 'small' : 'default',
+            simple: isMobile
           }}
           onChange={handleTableChange}
         />

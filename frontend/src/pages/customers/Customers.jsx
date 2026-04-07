@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Button, Input, Space, Modal, Form, message, Tag, Popconfirm } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import useResponsive from '../../hooks/useResponsive';
 import {
   fetchCustomers,
   createCustomer,
@@ -13,6 +14,7 @@ import {
 const Customers = () => {
   const dispatch = useDispatch();
   const { list, loading, pagination } = useSelector(state => state.customers);
+  const { isMobile } = useResponsive();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState(null);
   const [searchText, setSearchText] = useState('');
@@ -127,10 +129,23 @@ const Customers = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-        <h1>Customer Management</h1>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
-          Add Customer
+      <div style={{ 
+        marginBottom: 16, 
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <h1 style={{ margin: 0 }}>Customer Management</h1>
+        <Button 
+          type="primary" 
+          icon={<PlusOutlined />} 
+          onClick={() => showModal()}
+          size={isMobile ? 'small' : 'middle'}
+          style={{ flexShrink: 0 }}
+        >
+          {isMobile ? 'Add' : 'Add Customer'}
         </Button>
       </div>
 

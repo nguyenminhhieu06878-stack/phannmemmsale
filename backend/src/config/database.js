@@ -24,8 +24,11 @@ const connectDB = async () => {
     await sequelize.authenticate();
     console.log('✅ SQLite database connected successfully');
     
-    // Sync database models - temporarily disabled to avoid sync issues
-    // await sequelize.sync({ alter: true });
+    // Import models to ensure they are registered
+    require('../models');
+    
+    // Sync database models
+    await sequelize.sync({ alter: true });
     console.log('✅ Database models synchronized');
   } catch (error) {
     console.error('❌ Database connection error:', error);

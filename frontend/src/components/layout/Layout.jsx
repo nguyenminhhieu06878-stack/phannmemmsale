@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Layout as AntLayout, Menu, Avatar, Dropdown, Button, theme, Badge, Space, Typography } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Layout as AntLayout, Menu, Avatar, Dropdown, Button, theme, Badge, Space, Typography, Drawer } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -23,19 +23,29 @@ import NotificationBell from '../NotificationBell'
 import { filterMenuByRole, getRoleDisplayName } from '../../utils/permissions'
 import UserInfo from '../UserInfo'
 import logoImage from '../../assets/logo.png'
+import useResponsive from '../../hooks/useResponsive'
 
 const { Header, Sider, Content } = AntLayout
 const { Text } = Typography
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false)
+  const [mobileDrawerVisible, setMobileDrawerVisible] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)
+  const { isMobile, isTablet } = useResponsive()
   const {
     token: { colorBgContainer },
   } = theme.useToken()
+
+  // Auto-collapse sidebar on mobile and tablet
+  useEffect(() => {
+    if (isMobile || (isTablet && window.innerWidth < 992)) {
+      setCollapsed(true)
+    }
+  }, [isMobile, isTablet])
 
   const handleLogout = () => {
     dispatch(logout())
@@ -133,6 +143,17 @@ const Layout = ({ children }) => {
 
   const handleMenuClick = ({ key }) => {
     navigate(key)
+    if (isMobile) {
+      setMobileDrawerVisible(false)
+    }
+  }
+
+  const toggleMobileMenu = () => {
+    if (isMobile) {
+      setMobileDrawerVisible(!mobileDrawerVisible)
+    } else {
+      setCollapsed(!collapsed)
+    }
   }
 
   const getSelectedKey = () => {
@@ -164,47 +185,238 @@ const Layout = ({ children }) => {
           .user-info-container:hover {
             background-color: #f6f8fa !important;
           }
+
+          .ant-layout-header {
+            overflow: hidden !important;
+          }
+          
+          .header-actions {
+            flex-shrink: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          .header-actions .ant-space-item {
+            flex-shrink: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          .header-search {
+            flex-shrink: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          .header-search .anticon {
+            margin: 0 !important;
+          }
+          
+          .ant-btn {
+            white-space: nowrap !important;
+          }
+
+          /* Tablet and smaller desktop */
+          @media (max-width: 1200px) {
+            .header-search {
+              width: 32px !important;
+              padding: 0 !important;
+              min-width: 32px !important;
+              max-width: 32px !important;
+            }
+            
+            .header-search span:not(.anticon) {
+              display: none !important;
+            }
+          }
+
+          /* Tablet */
+          @media (max-width: 992px) {
+            .ant-layout-header {
+              padding: 0 20px !important;
+            }
+            
+            .header-actions {
+              gap: 12px !important;
+            }
+            
+            .header-search {
+              width: 32px !important;
+              padding: 0 !important;
+              min-width: 32px !important;
+              max-width: 32px !important;
+              flex-shrink: 0 !important;
+            }
+          }
+
+          /* Mobile landscape */
+          @media (max-width: 768px) {
+            .ant-layout-header {
+              padding: 0 16px !important;
+            }
+            
+            .header-title {
+              display: none !important;
+            }
+            
+            .header-search {
+              width: 32px !important;
+              padding: 0 !important;
+              min-width: 32px !important;
+              max-width: 32px !important;
+              flex-shrink: 0 !important;
+            }
+            
+            .user-info-mobile {
+              display: none !important;
+            }
+            
+            .header-actions {
+              gap: 10px !important;
+            }
+            
+            .ant-layout-content {
+              margin: 8px !important;
+              padding: 16px !important;
+            }
+          }
+
+          /* Mobile portrait */
+          @media (max-width: 576px) {
+            .ant-layout-header {
+              padding: 0 12px !important;
+            }
+            
+            .header-actions {
+              gap: 8px !important;
+            }
+            
+            .user-info-container {
+              padding: 4px 6px !important;
+              gap: 6px !important;
+            }
+            
+            .header-search {
+              width: 28px !important;
+              height: 28px !important;
+              min-width: 28px !important;
+              max-width: 28px !important;
+              padding: 0 !important;
+              flex-shrink: 0 !important;
+            }
+          }
+
+          /* Very small mobile */
+          @media (max-width: 480px) {
+            .ant-layout-content {
+              margin: 4px !important;
+              padding: 12px !important;
+            }
+            
+            .ant-layout-header {
+              padding: 0 8px !important;
+            }
+            
+            .header-actions {
+              gap: 6px !important;
+            }
+            
+            .user-info-container {
+              padding: 2px 4px !important;
+              gap: 4px !important;
+            }
+          }
+
+          /* iPhone 12 Pro and similar */
+          @media (max-width: 390px) {
+            .ant-layout-header {
+              padding: 0 6px !important;
+            }
+            
+            .header-actions {
+              gap: 4px !important;
+            }
+            
+            .header-search {
+              width: 24px !important;
+              height: 24px !important;
+              min-width: 24px !important;
+              max-width: 24px !important;
+            }
+          }
         `}
       </style>
-      <Sider 
-        trigger={null} 
-        collapsible 
-        collapsed={collapsed}
-        style={{
-          background: '#24292f',
-          boxShadow: '1px 0 0 #30363d',
-          borderRight: '1px solid #30363d'
-        }}
-      >
-        <div style={{
-          height: 64,
-          margin: '0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: collapsed ? 'center' : 'flex-start',
-          color: '#f0f6fc',
-          fontWeight: '700',
-          fontSize: collapsed ? '20px' : '18px',
-          paddingLeft: collapsed ? '0' : '24px',
-          borderBottom: '1px solid #30363d',
-          background: '#24292f'
-        }}>
-          {collapsed ? '' : 'ERP Sales Pro'}
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          selectedKeys={[getSelectedKey()]}
-          items={filteredMenuItems}
-          onClick={handleMenuClick}
+
+      {/* Mobile Drawer */}
+      {isMobile && (
+        <Drawer
+          title={
+            <div style={{ color: '#f0f6fc', fontWeight: '700', fontSize: '18px' }}>
+              ERP Sales Pro
+            </div>
+          }
+          placement="left"
+          onClose={() => setMobileDrawerVisible(false)}
+          open={mobileDrawerVisible}
+          bodyStyle={{ padding: 0, background: '#24292f' }}
+          headerStyle={{ background: '#24292f', borderBottom: '1px solid #30363d' }}
+          width={280}
+        >
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[getSelectedKey()]}
+            items={filteredMenuItems}
+            onClick={handleMenuClick}
+            style={{
+              background: '#24292f',
+              border: 'none',
+              fontSize: '14px'
+            }}
+          />
+        </Drawer>
+      )}
+
+      {/* Desktop Sidebar */}
+      {!isMobile && (
+        <Sider 
+          trigger={null} 
+          collapsible 
+          collapsed={collapsed}
           style={{
-            background: 'transparent',
-            border: 'none',
-            fontSize: '14px',
-            marginTop: '8px'
+            background: '#24292f',
+            boxShadow: '1px 0 0 #30363d',
+            borderRight: '1px solid #30363d'
           }}
-        />
-      </Sider>
+        >
+          <div style={{
+            height: 64,
+            margin: '0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            color: '#f0f6fc',
+            fontWeight: '700',
+            fontSize: collapsed ? '20px' : '18px',
+            paddingLeft: collapsed ? '0' : '24px',
+            borderBottom: '1px solid #30363d',
+            background: '#24292f'
+          }}>
+            {collapsed ? '' : 'ERP Sales Pro'}
+          </div>
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[getSelectedKey()]}
+            items={filteredMenuItems}
+            onClick={handleMenuClick}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              fontSize: '14px',
+              marginTop: '8px'
+            }}
+          />
+        </Sider>
+      )}
       
       <AntLayout style={{ background: '#f6f8fa' }}>
         <Header
@@ -216,14 +428,15 @@ const Layout = ({ children }) => {
             justifyContent: 'space-between',
             boxShadow: '0 1px 0 rgba(27, 31, 36, 0.15)',
             borderBottom: '1px solid #d0d7de',
-            height: '64px'
+            height: '64px',
+            overflow: 'hidden'
           }}
         >
           <Space align="center">
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={toggleMobileMenu}
               style={{
                 fontSize: '16px',
                 width: 32,
@@ -231,31 +444,54 @@ const Layout = ({ children }) => {
                 color: '#656d76'
               }}
             />
-            <div style={{
-              color: '#24292f',
-              fontSize: '16px',
-              fontWeight: '600',
-              marginLeft: '8px'
-            }}>
+            <div 
+              className="header-title"
+              style={{
+                color: '#24292f',
+                fontSize: '16px',
+                fontWeight: '600',
+                marginLeft: '8px'
+              }}
+            >
               Dashboard
             </div>
           </Space>
           
-          <Space size="large" align="center">
+          <Space 
+            size={isMobile ? "small" : "large"} 
+            align="center"
+            className="header-actions"
+            style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: isMobile ? '6px' : (isTablet ? '10px' : '16px'),
+              flexShrink: 0,
+              minWidth: 0
+            }}
+          >
             <Button
+              className="header-search"
               type="text"
               icon={<SearchOutlined />}
               style={{
                 borderRadius: '6px',
-                padding: '0 12px',
                 background: '#f6f8fa',
                 border: '1px solid #d0d7de',
                 color: '#656d76',
                 fontSize: '14px',
-                height: '32px'
+                height: isMobile ? '28px' : '32px',
+                width: isMobile ? '28px' : (isTablet ? '32px' : 'auto'),
+                minWidth: isMobile ? '28px' : '32px',
+                maxWidth: isMobile ? '28px' : (isTablet ? '32px' : 'none'),
+                padding: (isMobile || isTablet) ? '0' : '0 12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                overflow: 'hidden'
               }}
             >
-              Search...
+              {!isMobile && !isTablet && window.innerWidth > 1200 && 'Search...'}
             </Button>
             
             <Badge count={5} size="small">
@@ -263,13 +499,17 @@ const Layout = ({ children }) => {
                 type="text"
                 icon={<BellOutlined />}
                 style={{
-                  width: 32,
-                  height: 32,
+                  width: isMobile ? 28 : 32,
+                  height: isMobile ? 28 : 32,
+                  minWidth: isMobile ? 28 : 32,
+                  maxWidth: isMobile ? 28 : 32,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#656d76',
-                  borderRadius: '6px'
+                  borderRadius: '6px',
+                  flexShrink: 0,
+                  padding: 0
                 }}
               />
             </Badge>
@@ -279,14 +519,18 @@ const Layout = ({ children }) => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                padding: '6px 12px',
+                gap: isMobile ? '4px' : (isTablet ? '8px' : '12px'),
+                padding: isMobile ? '4px 6px' : '6px 12px',
                 borderRadius: '8px',
                 cursor: 'pointer',
-                transition: 'background-color 0.2s ease'
+                transition: 'background-color 0.2s ease',
+                flexShrink: 0,
+                minWidth: 0
               }}
             >
-              <UserInfo />
+              <div className="user-info-mobile">
+                <UserInfo />
+              </div>
               <Dropdown
                 menu={{ items: userMenuItems }}
                 placement="bottomRight"
@@ -294,7 +538,7 @@ const Layout = ({ children }) => {
                 trigger={['click']}
               >
                 <Avatar 
-                  size={36}
+                  size={isMobile ? 32 : 36}
                   style={{ 
                     background: '#0969da',
                     cursor: 'pointer',
@@ -310,8 +554,8 @@ const Layout = ({ children }) => {
         
         <Content
           style={{
-            margin: '16px',
-            padding: '24px',
+            margin: isMobile ? '8px' : '16px',
+            padding: isMobile ? '16px' : '24px',
             minHeight: 'calc(100vh - 96px)',
             background: '#ffffff',
             borderRadius: '8px',

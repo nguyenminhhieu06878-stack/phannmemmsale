@@ -16,6 +16,7 @@ import {
 } from '@ant-design/icons';
 import { fetchDashboardStats } from '../store/slices/reportSlice';
 import { canPerformAction, getRoleDisplayName } from '../utils/permissions';
+import useResponsive from '../hooks/useResponsive';
 
 const { Title, Text } = Typography;
 
@@ -23,6 +24,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { dashboardStats, loading } = useSelector(state => state.reports);
   const { user } = useSelector(state => state.auth);
+  const { isMobile, isTablet, isSmallMobile } = useResponsive();
 
   useEffect(() => {
     dispatch(fetchDashboardStats());
@@ -162,7 +164,7 @@ const Dashboard = () => {
       {/* Stats Cards */}
       <Row gutter={[16, 16]} style={{ marginBottom: '24px' }}>
         {stats.map((stat, index) => (
-          <Col xs={24} sm={12} lg={6} key={index}>
+          <Col xs={24} sm={12} md={8} lg={6} key={index}>
             <Card 
               style={{ 
                 background: '#ffffff',
@@ -172,18 +174,18 @@ const Dashboard = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div>
+                <div style={{ flex: 1 }}>
                   <Statistic
                     title={<Text style={{ fontSize: '14px', fontWeight: '600', color: '#656d76' }}>{stat.title}</Text>}
                     value={stat.value}
                     suffix={stat.suffix}
                     valueStyle={{ 
-                      fontSize: '24px', 
+                      fontSize: isMobile ? '20px' : '24px', 
                       fontWeight: '600',
                       color: '#24292f'
                     }}
                   />
-                  <div style={{ marginTop: '4px', display: 'flex', alignItems: 'center' }}>
+                  <div style={{ marginTop: '4px', display: 'flex', alignItems: 'center' }} className="hide-mobile">
                     <ArrowUpOutlined style={{ color: '#1a7f37', fontSize: '12px' }} />
                     <Text style={{ fontSize: '12px', color: '#1a7f37', marginLeft: '4px' }}>
                       +12% from last month
@@ -191,16 +193,17 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div style={{
-                  width: '48px',
-                  height: '48px',
+                  width: isMobile ? '40px' : '48px',
+                  height: isMobile ? '40px' : '48px',
                   borderRadius: '8px',
                   background: '#f6f8fa',
                   border: '1px solid #d0d7de',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '20px',
-                  color: '#0969da'
+                  fontSize: isMobile ? '16px' : '20px',
+                  color: '#0969da',
+                  flexShrink: 0
                 }}>
                   {stat.prefix}
                 </div>
@@ -212,21 +215,21 @@ const Dashboard = () => {
 
       <Row gutter={[16, 16]}>
         {/* Alerts & Notifications */}
-        <Col xs={24} lg={14}>
+        <Col xs={24} lg={14} xl={16}>
           <Card 
             title={
               <Space>
                 <WarningOutlined style={{ color: '#d1242f' }} />
-                <span style={{ color: '#24292f', fontWeight: '600' }}>Warnings & Notifications</span>
+                <span style={{ color: '#24292f', fontWeight: '600' }} className="text-responsive-md">Warnings & Notifications</span>
               </Space>
             }
             extra={<Tag color="blue">Realtime</Tag>}
-            style={{ height: '400px' }}
+            style={{ height: isMobile ? 'auto' : '400px' }}
           >
-            <div style={{ marginBottom: '16px' }}>
+            <div style={{ marginBottom: '16px', maxHeight: isMobile ? 'none' : '300px', overflowY: 'auto' }}>
               {alerts.map((alert, index) => (
                 <div key={alert.key} style={{
-                  padding: '12px',
+                  padding: isMobile ? '8px' : '12px',
                   marginBottom: '8px',
                   borderRadius: '6px',
                   background: alert.count > 0 ? '#fff8f0' : '#f0f9ff',
@@ -234,9 +237,9 @@ const Dashboard = () => {
                   transition: 'all 0.2s ease'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Space>
+                    <Space size={isMobile ? 'small' : 'middle'}>
                       {alert.icon}
-                      <Text style={{ fontWeight: '500', color: '#24292f' }}>{alert.type}</Text>
+                      <Text style={{ fontWeight: '500', color: '#24292f', fontSize: isMobile ? '13px' : '14px' }}>{alert.type}</Text>
                     </Space>
                     <Tag color={alert.count > 0 ? 'orange' : 'green'}>
                       {alert.count > 0 ? alert.count : <CheckCircleOutlined />}
@@ -258,17 +261,17 @@ const Dashboard = () => {
         </Col>
 
         {/* Recent Activities */}
-        <Col xs={24} lg={10}>
+        <Col xs={24} lg={10} xl={8}>
           <Card 
             title={
               <Space>
                 <ClockCircleOutlined style={{ color: '#0969da' }} />
-                <span style={{ color: '#24292f', fontWeight: '600' }}>Recent Activities</span>
+                <span style={{ color: '#24292f', fontWeight: '600' }} className="text-responsive-md">Recent Activities</span>
               </Space>
             }
-            style={{ height: '400px' }}
+            style={{ height: isMobile ? 'auto' : '400px' }}
           >
-            <div style={{ height: '300px', overflowY: 'auto' }}>
+            <div style={{ height: isMobile ? 'auto' : '300px', overflowY: 'auto' }}>
               {[
                 { time: '10:30', action: 'Order #DH001 created', user: 'Nguyen Van A', type: 'order' },
                 { time: '09:15', action: 'Quotation #BG002 approved', user: 'Tran Thi B', type: 'quotation' },
@@ -277,7 +280,7 @@ const Dashboard = () => {
                 { time: '07:55', action: 'Invoice #HD003 was paid', user: 'Pham Thi D', type: 'invoice' }
               ].map((activity, index) => (
                 <div key={index} style={{
-                  padding: '8px 0',
+                  padding: isMobile ? '6px 0' : '8px 0',
                   borderBottom: index < 4 ? '1px solid #d0d7de' : 'none',
                   display: 'flex',
                   alignItems: 'flex-start',
@@ -294,7 +297,7 @@ const Dashboard = () => {
                   <div style={{ flex: 1 }}>
                     <Text style={{ fontSize: '12px', color: '#656d76' }}>{activity.time}</Text>
                     <div style={{ marginTop: '2px' }}>
-                      <Text style={{ fontSize: '14px', color: '#24292f' }}>{activity.action}</Text>
+                      <Text style={{ fontSize: isMobile ? '13px' : '14px', color: '#24292f' }}>{activity.action}</Text>
                     </div>
                     <Text style={{ fontSize: '12px', color: '#656d76' }}>
                       by {activity.user}

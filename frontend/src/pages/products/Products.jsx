@@ -10,10 +10,12 @@ import {
 } from '../../store/slices/productSlice';
 import PermissionButton from '../../components/PermissionButton';
 import { stockRequestService } from '../../services/stockRequestService';
+import useResponsive from '../../hooks/useResponsive';
 
 const Products = () => {
   const dispatch = useDispatch();
   const { list, loading, pagination } = useSelector(state => state.products);
+  const { isMobile } = useResponsive();
   const { user } = useSelector(state => state.auth);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isStockRequestModalVisible, setIsStockRequestModalVisible] = useState(false);
@@ -221,15 +223,24 @@ const Products = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-        <h1>Product Management</h1>
+      <div style={{ 
+        marginBottom: 16, 
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <h1 style={{ margin: 0 }}>Product Management</h1>
         <PermissionButton
           action="product.create"
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => showModal()}
+          size={isMobile ? 'small' : 'middle'}
+          style={{ flexShrink: 0 }}
         >
-          Add Product
+          {isMobile ? 'Add' : 'Add Product'}
         </PermissionButton>
       </div>
 

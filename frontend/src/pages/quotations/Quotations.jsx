@@ -20,12 +20,14 @@ import {
 import { quotationService } from '../../services/quotationService';
 import QuotationForm from '../../components/QuotationForm';
 import { exportQuotationToPDF, exportQuotationToExcel, exportQuotationsToExcel } from '../../utils/exportUtils';
+import useResponsive from '../../hooks/useResponsive';
 import dayjs from 'dayjs';
 
 const Quotations = () => {
   const dispatch = useDispatch();
   const { list, loading, pagination } = useSelector(state => state.quotations);
   const { user } = useSelector(state => state.auth);
+  const { isMobile, isTablet } = useResponsive();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingQuotation, setEditingQuotation] = useState(null);
   const [viewModalVisible, setViewModalVisible] = useState(false);
@@ -238,13 +240,14 @@ const Quotations = () => {
         ];
 
         return (
-          <Space>
+          <Space size="small" wrap>
             <Button
               type="link"
               icon={<EyeOutlined />}
               onClick={() => showDetail(record)}
+              size={isMobile ? "small" : "middle"}
             >
-              Details
+              {!isMobile && "Details"}
             </Button>
             
             <Dropdown
@@ -254,8 +257,9 @@ const Quotations = () => {
               <Button
                 type="link"
                 icon={<DownloadOutlined />}
+                size={isMobile ? "small" : "middle"}
               >
-                Export File
+                {!isMobile && "Export File"}
               </Button>
             </Dropdown>
 
@@ -265,8 +269,9 @@ const Quotations = () => {
                   type="link"
                   icon={<EditOutlined />}
                   onClick={() => showModal(record)}
+                  size={isMobile ? "small" : "middle"}
                 >
-                  Edit
+                  {!isMobile && "Edit"}
                 </Button>
                 <Popconfirm
                   title="Are you sure you want to delete?"
@@ -274,8 +279,13 @@ const Quotations = () => {
                   okText="Yes"
                   cancelText="No"
                 >
-                  <Button type="link" danger icon={<DeleteOutlined />}>
-                    Delete
+                  <Button 
+                    type="link" 
+                    danger 
+                    icon={<DeleteOutlined />}
+                    size={isMobile ? "small" : "middle"}
+                  >
+                    {!isMobile && "Delete"}
                   </Button>
                 </Popconfirm>
               </>
@@ -288,8 +298,12 @@ const Quotations = () => {
                 okText="Yes"
                 cancelText="No"
               >
-                <Button type="link" icon={<CheckOutlined />}>
-                  Create Order
+                <Button 
+                  type="link" 
+                  icon={<CheckOutlined />}
+                  size={isMobile ? "small" : "middle"}
+                >
+                  {isMobile ? "Order" : "Create Order"}
                 </Button>
               </Popconfirm>
             )}
@@ -301,17 +315,54 @@ const Quotations = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-        <h1>Quotation Management</h1>
-        <Space>
+      <div style={{ 
+        marginBottom: 16, 
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <h1 style={{ 
+          margin: 0, 
+          minWidth: 0, 
+          flex: '1 1 auto',
+          fontSize: isMobile ? '18px' : '24px',
+          lineHeight: isMobile ? '24px' : '32px'
+        }}>
+          Quotation Management
+        </h1>
+        <Space 
+          style={{ 
+            flexShrink: 0,
+            flexWrap: 'wrap'
+          }}
+          size={isMobile ? "small" : "middle"}
+        >
           <Button 
             icon={<FileExcelOutlined />} 
             onClick={handleExportAllExcel}
+            size={isMobile ? "small" : "middle"}
+            style={isMobile ? { 
+              fontSize: '12px',
+              padding: '4px 8px',
+              height: '28px'
+            } : {}}
           >
-            Export List to Excel
+            {!isMobile && "Export List to Excel"}
           </Button>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => showModal()}>
-            Create Quotation
+          <Button 
+            type="primary" 
+            icon={<PlusOutlined />} 
+            onClick={() => showModal()}
+            size={isMobile ? "small" : "middle"}
+            style={isMobile ? { 
+              fontSize: '12px',
+              padding: '4px 8px',
+              height: '28px'
+            } : {}}
+          >
+            {isMobile ? "Create" : "Create Quotation"}
           </Button>
         </Space>
       </div>
@@ -321,13 +372,16 @@ const Quotations = () => {
         dataSource={list}
         loading={loading}
         rowKey="id"
-        scroll={{ x: 1200 }}
+        scroll={{ x: isMobile ? 800 : 1200 }}
+        size={isMobile ? "small" : "middle"}
         pagination={{
           current: pagination.page,
           pageSize: pagination.limit,
           total: pagination.total,
-          showSizeChanger: true,
-          showTotal: (total) => `Total ${total} quotations`
+          showSizeChanger: !isMobile,
+          showTotal: (total) => `Total ${total} quotations`,
+          size: isMobile ? "small" : "default",
+          showQuickJumper: !isMobile
         }}
         onChange={handleTableChange}
       />

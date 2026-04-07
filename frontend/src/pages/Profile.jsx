@@ -3,12 +3,14 @@ import { Typography, Card, Descriptions, Tag, Button, Modal, Form, Input, messag
 import { useSelector, useDispatch } from 'react-redux'
 import { EditOutlined, LockOutlined } from '@ant-design/icons'
 import { changePassword } from '../store/slices/userSlice'
+import useResponsive from '../hooks/useResponsive'
 
 const { Title } = Typography
 
 const Profile = () => {
   const { user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
+  const { isMobile } = useResponsive()
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false)
   const [passwordForm] = Form.useForm()
 
@@ -53,13 +55,22 @@ const Profile = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Title level={2}>Personal Information</Title>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'flex-start', 
+        marginBottom: 16,
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <Title level={2} style={{ margin: 0 }}>Personal Information</Title>
         <Button
           icon={<LockOutlined />}
           onClick={() => setIsPasswordModalOpen(true)}
+          size={isMobile ? 'small' : 'middle'}
+          style={{ flexShrink: 0 }}
         >
-          Change Password
+          {isMobile ? 'Change PWD' : 'Change Password'}
         </Button>
       </div>
       

@@ -3,9 +3,11 @@ import { Table, Button, Space, Modal, Form, message, Tag, Input, Card, Row, Col 
 import { EyeOutlined, EditOutlined, DeleteOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
 import { supplierService } from '../../services/supplierService';
 import { useSelector } from 'react-redux';
+import useResponsive from '../../hooks/useResponsive';
 
 const Suppliers = () => {
   const { user } = useSelector(state => state.auth);
+  const { isMobile } = useResponsive();
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({ page: 1, limit: 10, total: 0 });
@@ -199,22 +201,41 @@ const Suppliers = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Supplier Management</h1>
-        <Space>
+      <div style={{ 
+        marginBottom: 16, 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <h1 style={{ margin: 0 }}>Supplier Management</h1>
+        <div style={{ 
+          display: 'flex', 
+          gap: '8px',
+          flexWrap: 'wrap',
+          alignItems: 'center'
+        }}>
           {(user?.role === 'admin' || user?.role === 'sales_manager') && (
             <Button 
               type="primary" 
               icon={<PlusOutlined />} 
               onClick={showCreateModal}
+              size={isMobile ? 'small' : 'middle'}
+              style={{ flexShrink: 0 }}
             >
-              Add Supplier
+              {isMobile ? 'Add' : 'Add Supplier'}
             </Button>
           )}
-          <Button icon={<ReloadOutlined />} onClick={fetchSuppliers}>
-            Refresh
+          <Button 
+            icon={<ReloadOutlined />} 
+            onClick={fetchSuppliers}
+            size={isMobile ? 'small' : 'middle'}
+            style={{ flexShrink: 0 }}
+          >
+            {isMobile ? '' : 'Refresh'}
           </Button>
-        </Space>
+        </div>
       </div>
 
       <Table

@@ -6,11 +6,13 @@ import { fetchOrders, createOrder, updateOrder, deleteOrder } from '../../store/
 import { orderService } from '../../services/orderService';
 import OrderForm from '../../components/OrderForm';
 import PermissionButton from '../../components/PermissionButton';
+import useResponsive from '../../hooks/useResponsive';
 import dayjs from 'dayjs';
 
 const Orders = () => {
   const dispatch = useDispatch();
   const { list, loading, pagination } = useSelector(state => state.orders);
+  const { isMobile } = useResponsive();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isFormModalVisible, setIsFormModalVisible] = useState(false);
@@ -328,24 +330,40 @@ const Orders = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-        <h1>Order Management</h1>
-        <Space>
+      <div style={{ 
+        marginBottom: 16, 
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <h1 style={{ margin: 0 }}>Order Management</h1>
+        <div style={{ 
+          display: 'flex', 
+          gap: '8px',
+          flexWrap: 'wrap',
+          alignItems: 'center'
+        }}>
           <Button 
             icon={<ReloadOutlined />}
             onClick={handleRefresh}
+            size={isMobile ? 'small' : 'middle'}
+            style={{ flexShrink: 0 }}
           >
-            Refresh
+            {isMobile ? '' : 'Refresh'}
           </Button>
           <PermissionButton
             action="order.create"
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => showFormModal()}
+            size={isMobile ? 'small' : 'middle'}
+            style={{ flexShrink: 0 }}
           >
-            Create Order
+            {isMobile ? 'Create' : 'Create Order'}
           </PermissionButton>
-        </Space>
+        </div>
       </div>
 
       <Table

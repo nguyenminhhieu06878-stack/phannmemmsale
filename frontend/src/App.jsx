@@ -7,6 +7,7 @@ import Layout from './components/layout/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './pages/auth/Login'
 import Dashboard from './pages/Dashboard'
+import SupplierDashboard from './pages/SupplierDashboard'
 import Customers from './pages/customers/Customers'
 import Products from './pages/products/Products'
 import Quotations from './pages/quotations/Quotations'
@@ -22,7 +23,7 @@ import PurchaseOrders from './pages/purchase-orders/PurchaseOrders'
 
 function App() {
   const dispatch = useDispatch()
-  const { isAuthenticated, loading } = useSelector(state => state.auth)
+  const { isAuthenticated, loading, user } = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(checkAuth())
@@ -56,7 +57,9 @@ function App() {
           element={isAuthenticated ? (
             <Layout>
               <Routes>
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/" element={
+                  user?.role === 'supplier' ? <SupplierDashboard /> : <Dashboard />
+                } />
                 <Route path="/customers/*" element={
                   <ProtectedRoute requiredPath="/customers">
                     <Customers />

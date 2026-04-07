@@ -11,11 +11,13 @@ import {
 import { invoiceService } from '../../services/invoiceService';
 import InvoiceForm from '../../components/InvoiceForm';
 import PaymentModal from '../../components/PaymentModal';
+import useResponsive from '../../hooks/useResponsive';
 import dayjs from 'dayjs';
 
 const Invoices = () => {
   const dispatch = useDispatch();
   const { list, loading, pagination } = useSelector(state => state.invoices);
+  const { isMobile } = useResponsive();
   const [isFormModalVisible, setIsFormModalVisible] = useState(false);
   const [isPaymentModalVisible, setIsPaymentModalVisible] = useState(false);
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
@@ -241,10 +243,23 @@ const Invoices = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-        <h1>Invoice Management</h1>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => showFormModal()}>
-          Create Invoice
+      <div style={{ 
+        marginBottom: 16, 
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <h1 style={{ margin: 0 }}>Invoice Management</h1>
+        <Button 
+          type="primary" 
+          icon={<PlusOutlined />} 
+          onClick={() => showFormModal()}
+          size={isMobile ? 'small' : 'middle'}
+          style={{ flexShrink: 0 }}
+        >
+          {isMobile ? 'Create' : 'Create Invoice'}
         </Button>
       </div>
 

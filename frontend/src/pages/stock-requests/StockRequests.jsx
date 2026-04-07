@@ -6,11 +6,13 @@ import { supplierService } from '../../services/supplierService';
 import { purchaseOrderService } from '../../services/purchaseOrderService';
 import { productService } from '../../services/productService';
 import { useSelector } from 'react-redux';
+import useResponsive from '../../hooks/useResponsive';
 
 const { TextArea } = Input;
 
 const StockRequests = () => {
   const { user } = useSelector(state => state.auth);
+  const { isMobile, isTablet } = useResponsive();
   const [stockRequests, setStockRequests] = useState([]);
   const [products, setProducts] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
@@ -282,14 +284,15 @@ const StockRequests = () => {
         const canCreatePO = record.status === 'approved' && (user?.role === 'admin' || user?.role === 'director') && !record.purchaseOrder;
         
         return (
-          <Space direction="vertical" size="small">
-            <Space>
+          <Space direction={isMobile ? "vertical" : "horizontal"} size="small">
+            <Space wrap>
               <Button
                 type="link"
                 icon={<EyeOutlined />}
                 onClick={() => showDetailModal(record)}
+                size={isMobile ? "small" : "middle"}
               >
-                Details
+                {isMobile ? '' : 'Details'}
               </Button>
               {record.status === 'pending' && (user?.role === 'admin' || user?.role === 'director') && (
                 <>
@@ -298,16 +301,18 @@ const StockRequests = () => {
                     icon={<CheckOutlined />}
                     style={{ color: 'green' }}
                     onClick={() => showApprovalModal(record, 'approved')}
+                    size={isMobile ? "small" : "middle"}
                   >
-                    Approve
+                    {isMobile ? '' : 'Approve'}
                   </Button>
                   <Button
                     type="link"
                     icon={<CloseOutlined />}
                     danger
                     onClick={() => showApprovalModal(record, 'rejected')}
+                    size={isMobile ? "small" : "middle"}
                   >
-                    Reject
+                    {isMobile ? '' : 'Reject'}
                   </Button>
                 </>
               )}
@@ -323,8 +328,9 @@ const StockRequests = () => {
                     console.log('Has purchase order:', !!record.purchaseOrder);
                     showPurchaseOrderModal(record);
                   }}
+                  size={isMobile ? "small" : "middle"}
                 >
-                  Create Purchase Order
+                  {isMobile ? 'PO' : 'Create Purchase Order'}
                 </Button>
               )}
               {record.purchaseOrder && (
@@ -332,49 +338,86 @@ const StockRequests = () => {
                   type="link"
                   style={{ color: 'green' }}
                   onClick={() => window.open(`/purchase-orders`, '_blank')}
+                  size={isMobile ? "small" : "middle"}
                 >
-                  View Purchase Order
+                  {isMobile ? 'View PO' : 'View Purchase Order'}
                 </Button>
               )}
             </Space>
-            {/* Debug info */}
-            <div style={{ fontSize: '10px', color: '#999' }}>
-              Status: {record.status} | Role: {user?.role} | PO: {record.purchaseOrder ? 'Yes' : 'No'} | Show: {canCreatePO ? 'Yes' : 'No'}
-            </div>
+            {/* Debug info - hide on mobile */}
+            {!isMobile && (
+              <div style={{ fontSize: '10px', color: '#999' }}>
+                Status: {record.status} | Role: {user?.role} | PO: {record.purchaseOrder ? 'Yes' : 'No'} | Show: {canCreatePO ? 'Yes' : 'No'}
+              </div>
+            )}
           </Space>
         );
       },
-      width: 250
+      width: isMobile ? 120 : 250
     }
   ];
 
   return (
     <div>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Stock Request</h1>
-        <Space>
-          {/* Debug info */}
-          <div style={{ fontSize: '12px', color: '#666', marginRight: '16px' }}>
-            User: {user?.fullName} | Role: {user?.role} | ID: {user?.id}
-          </div>
-          {(user?.role === 'warehouse_staff' || user?.role === 'admin') && (
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+          gap: '12px'
+        }}>
+          <h1 style={{ margin: 0, minWidth: 'fit-content' }}>Stock Request</h1>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '8px',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            flex: 1,
+            minWidth: 'fit-content'
+          }}>
+            {/* Debug info - hide on mobile */}
+            {!isMobile && (
+              <div style={{ 
+                fontSize: '12px', 
+                color: '#666'
+              }}>
+                User: {user?.fullName} | Role: {user?.role} | ID: {user?.id}
+              </div>
+            )}
+            {(user?.role === 'warehouse_staff' || user?.role === 'admin') && (
+              <Button 
+                type="primary" 
+                icon={<PlusOutlined />} 
+                onClick={showCreateModal}
+                size={isMobile ? 'small' : 'middle'}
+                style={{ 
+                  minWidth: 'fit-content',
+                  flexShrink: 0
+                }}
+              >
+                {isMobile ? 'New' : 'Create New Request'}
+              </Button>
+            )}
             <Button 
-              type="primary" 
-              icon={<PlusOutlined />} 
-              onClick={showCreateModal}
+              icon={<ReloadOutlined />} 
+              onClick={fetchStockRequests}
+              size={isMobile ? 'small' : 'middle'}
+              style={{ 
+                minWidth: 'fit-content',
+                flexShrink: 0
+              }}
             >
-              Create New Request
+              {isMobile ? '' : 'Refresh'}
             </Button>
-          )}
-          <Button icon={<ReloadOutlined />} onClick={fetchStockRequests}>
-            Refresh
-          </Button>
-        </Space>
+          </div>
+        </div>
       </div>
 
       <Card style={{ marginBottom: 16 }}>
-        <Row gutter={16}>
-          <Col span={8}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={8}>
             <Select
               placeholder="Lọc theo trạng thái"
               style={{ width: '100%' }}
@@ -388,7 +431,7 @@ const StockRequests = () => {
               <Select.Option value="completed">Complete</Select.Option>
             </Select>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8}>
             <Select
               placeholder="Filter by priority"
               style={{ width: '100%' }}
@@ -410,13 +453,17 @@ const StockRequests = () => {
         dataSource={stockRequests}
         loading={loading}
         rowKey="id"
-        scroll={{ x: 1400 }}
+        scroll={{ x: isMobile ? 800 : 1400 }}
+        size={isMobile ? 'small' : 'middle'}
         pagination={{
           current: pagination.page,
           pageSize: pagination.limit,
           total: pagination.total,
-          showSizeChanger: true,
-          showTotal: (total) => `Total ${total} requests`
+          showSizeChanger: !isMobile,
+          showQuickJumper: !isMobile,
+          showTotal: (total) => `Total ${total} requests`,
+          size: isMobile ? 'small' : 'default',
+          simple: isMobile
         }}
         onChange={handleTableChange}
       />

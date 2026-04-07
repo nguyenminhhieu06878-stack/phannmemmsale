@@ -44,19 +44,60 @@ const Login = () => {
     }}>
       <style>
         {`
+          .login-container {
+            display: flex;
+            min-height: 100vh;
+          }
+          
           @media (max-width: 768px) {
             .login-container {
-              flex-direction: column !important;
-            }
-            .login-left, .login-right {
-              width: 100% !important;
-              flex: none !important;
+              position: relative !important;
             }
             .login-left {
-              min-height: 40vh;
+              position: absolute !important;
+              top: 0 !important;
+              left: 0 !important;
+              right: 0 !important;
+              bottom: 0 !important;
+              width: 100% !important;
+              height: 100vh !important;
+              z-index: 1 !important;
             }
             .login-right {
-              min-height: 60vh;
+              position: absolute !important;
+              top: 0 !important;
+              left: 0 !important;
+              right: 0 !important;
+              bottom: 0 !important;
+              width: 100% !important;
+              height: 100vh !important;
+              z-index: 2 !important;
+              background: rgba(255, 255, 255, 0.95) !important;
+              backdrop-filter: blur(20px) !important;
+              padding: 20px !important;
+              display: flex !important;
+              align-items: center !important;
+              justify-content: center !important;
+            }
+            .login-form-container {
+              max-width: 100% !important;
+              width: 100% !important;
+            }
+            .demo-accounts {
+              grid-template-columns: 1fr !important;
+              gap: 4px !important;
+            }
+          }
+          
+          @media (max-width: 480px) {
+            .login-right {
+              padding: 16px !important;
+            }
+            .login-form-container {
+              padding: 0 !important;
+            }
+            .demo-accounts {
+              font-size: 12px !important;
             }
           }
         `}
@@ -114,7 +155,7 @@ const Login = () => {
         position: 'relative',
         zIndex: 1
       }}>
-        <div style={{ width: '100%', maxWidth: '450px' }}>
+        <div style={{ width: '100%', maxWidth: '450px' }} className="login-form-container">
           <div style={{ marginBottom: '40px' }}>
             <Title level={2} style={{ 
               color: '#24292f', 
@@ -225,7 +266,7 @@ const Login = () => {
               gap: '8px',
               fontSize: '13px',
               color: '#656d76'
-            }}>
+            }} className="demo-accounts">
               <div>👨‍💼 Admin: <strong>admin</strong></div>
               <div>📊 Sales Manager: <strong>salesmanager</strong></div>
               <div>💼 Sales Staff: <strong>salesstaff</strong></div>
